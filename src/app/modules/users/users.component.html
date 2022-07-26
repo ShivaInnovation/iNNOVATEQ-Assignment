@@ -1,0 +1,54 @@
+<mat-card>
+    Users
+    <mat-card-actions align="end">
+      <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+        <mat-icon (click)="toggleShow()">menu</mat-icon>
+      </button>
+    </mat-card-actions>    
+  </mat-card>
+  
+  <mat-divider></mat-divider>
+  <br>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards" *ngIf="isShown">
+    <mat-card *ngFor="let item of users" class="example-card">
+        <mat-card-title> 
+            <p>{{item.username}}</p></mat-card-title>
+        <mat-card-content>          
+          <p>{{item.company.name}}</p>
+        </mat-card-content>
+      </mat-card>
+</div>
+
+<div class="example-container mat-elevation-z8" *ngIf="!isShown">
+
+  <mat-table [dataSource]="dataSource" matSort>
+    <!-- Progress Column -->
+    <ng-container matColumnDef="username">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Username </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.username}}% </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+   <!-- Name Column -->
+   <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+   </ng-container>
+   <!-- ID Column -->
+   <ng-container matColumnDef="website">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Website </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.website}} </mat-cell>
+  </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
